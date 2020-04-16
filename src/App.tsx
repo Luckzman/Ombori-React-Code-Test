@@ -1,7 +1,9 @@
 import React from 'react';
+import UserListItem from './components/UserListItem';
 import './App.css';
 
 function App() {
-  return <div className="App">React</div>;
+  return <UserListItem />;
 }
+
 export default App;
