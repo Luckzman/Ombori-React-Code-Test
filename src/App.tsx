@@ -1,9 +1,9 @@
 import React from 'react';
-import UserListItem from './components/UserListItem';
+import UserListPage from './components/UserListPage';
 import './App.css';
 
 function App() {
-  return <UserListItem />;
+  return <UserListPage />;
 }
 
 export default App;
