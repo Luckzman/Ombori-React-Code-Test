@@ -1,17 +1,50 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import { getAllUserAction } from './action';
+import { getAllUserAction, actionTypes } from './action';
 
-const user = (state = { data: [] }, action: getAllUserAction) => {
+const user = (state = { data: [], end: false }, action: getAllUserAction) => {
   switch (action.type) {
-    case 'GET_ALL_USERS':
+    case actionTypes.GET_ALL_USERS:
       return {
         ...state,
-        ...action.payload,
+        data: state.data.concat(action.payload.data),
+      };
+    case actionTypes.LOAD_MORE_USERS:
+      return {
+        ...state,
+        loading: action.loading,
+      };
+    case actionTypes.END_OF_LIST:
+      return {
+        ...state,
+        end: true,
       };
     default:
       return state;
   }
 };
 
-export default createStore(user, applyMiddleware(thunk));
+const pages = (state = { page: 0 }, action: getAllUserAction) => {
+  switch (action.type) {
+    case actionTypes.ADVANCE_PAGE:
+      return {
+        ...state,
+        page: state.page + 1,
+      };
+    default:
+      return state;
+  }
+};
+
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+export default createStore(
+  combineReducers({ user, pages }),
+  composeEnhancers(applyMiddleware(thunk))
+);
