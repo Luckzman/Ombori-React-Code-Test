@@ -1,10 +1,11 @@
 import { Action } from 'redux';
 import axios from 'axios';
 import { ThunkAction } from 'redux-thunk';
+import { RootState } from './types';
 
 type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
-  [],
+  RootState,
   null,
   Action<string>
 >;
@@ -28,7 +29,7 @@ const getAllUsersAction = (payload: { data: [] }) => ({
   payload,
 });
 
-const loadMoreUsers = (loading: boolean) => ({
+export const loadMoreUsers = (loading: boolean) => ({
   type: actionTypes.LOAD_MORE_USERS,
   loading,
 });
@@ -43,16 +44,21 @@ const endOfList = () => ({
 
 export const getAllUsers = (page: number): AppThunk => {
   return (dispatch): {} => {
-    const itemPerPage = 6;
-    dispatch(loadMoreUsers(true));
+    const itemPerPage = 4;
+    if (page <= 1) {
+      dispatch(loadMoreUsers(false));
+    } else {
+      dispatch(loadMoreUsers(true));
+    }
     return axios
       .get(`https://reqres.in/api/users?page=${page}&per_page=${itemPerPage}`)
       .then((response) => {
-        if (itemPerPage * page === response.data.total) {
-          dispatch(endOfList());
+        if (itemPerPage * page >= response.data.total) {
+          dispatch(getAllUsersAction(response.data));
+          return dispatch(endOfList());
         }
         dispatch(getAllUsersAction(response.data));
-        dispatch(loadMoreUsers(false));
+        return dispatch(loadMoreUsers(false));
       })
       .catch((error) => {
         if (error.response) {

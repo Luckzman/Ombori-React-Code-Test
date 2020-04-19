@@ -10,6 +10,16 @@
       margin: 0;
     }
   }
+  .container {
+    .loader {
+      width: 100%;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .page-bottom {
+      border: 1px solid transparent;
+    }
+  }
 }
 .container {
   width: 80%;
