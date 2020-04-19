@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import Loader from '../Loader';
 import UserListItem from '../UserListItem';
+import { RootState } from '../../store/types';
 import { getAllUsers, pageDispatch } from '../../store/action';
 import './UserListPage.scss';
 
@@ -12,23 +14,16 @@ interface User {
   email: string;
 }
 
-interface State {
-  user: {
-    data: [];
-    end: boolean;
-  };
-  pages: {
-    page: number;
-  };
-}
-
 const UserListPage: React.FC = () => {
-  const end = useSelector((state: State) => state.user.end, shallowEqual);
-  const users = useSelector((state: State) => state.user, shallowEqual);
-  const page = useSelector((state: State) => state.pages.page, shallowEqual);
+  const end = useSelector((state: RootState) => state.user.end, shallowEqual);
+  const users = useSelector((state: RootState) => state.user, shallowEqual);
+  const page = useSelector(
+    (state: RootState) => state.pages.page,
+    shallowEqual
+  );
   const dispatch = useDispatch();
 
-  const bottomBoundaryRef = useRef(null);
+  const scrollRef = useRef(null);
 
   useEffect(() => {
     if (page > 0) {
@@ -50,10 +45,10 @@ const UserListPage: React.FC = () => {
   );
 
   useEffect(() => {
-    if (bottomBoundaryRef.current) {
-      scrollObserver(bottomBoundaryRef.current);
+    if (scrollRef.current) {
+      scrollObserver(scrollRef.current);
     }
-  }, [scrollObserver, bottomBoundaryRef]);
+  }, [scrollObserver, scrollRef]);
 
   return (
     <div className="list-page">
@@ -66,7 +61,7 @@ const UserListPage: React.FC = () => {
       </div>
       <div className="container">
         {users.data &&
-          users.data.map((user: User, i) => (
+          users.data.map((user: User) => (
             <UserListItem
               key={user.id}
               avatar={user.avatar}
@@ -75,12 +70,17 @@ const UserListPage: React.FC = () => {
               email={user.email}
             />
           ))}
-        {end && <h1>End of file...</h1>}
-        <div
-          id="page-bottom-boundary"
-          style={{ border: '1px solid red' }}
-          ref={bottomBoundaryRef}
-        />
+        {users.loading && !end && (
+          <div className="loader">
+            <Loader />
+          </div>
+        )}
+        {end && (
+          <div className="loader">
+            <h1>End of file...</h1>
+          </div>
+        )}
+        <div id="page-bottom" ref={scrollRef} />
       </div>
     </div>
   );
