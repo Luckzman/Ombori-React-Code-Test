@@ -44,7 +44,7 @@ const endOfList = () => ({
 
 export const getAllUsers = (page: number): AppThunk => {
   return (dispatch): {} => {
-    const itemPerPage = 4;
+    const itemPerPage = 6;
     if (page <= 1) {
       dispatch(loadMoreUsers(false));
     } else {

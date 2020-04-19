@@ -59,7 +59,7 @@ const UserListPage: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="container">
+      <div className="container grid">
         {users.data &&
           users.data.map((user: User) => (
             <UserListItem
@@ -70,18 +70,18 @@ const UserListPage: React.FC = () => {
               email={user.email}
             />
           ))}
-        {users.loading && !end && (
-          <div className="loader">
-            <Loader />
-          </div>
-        )}
-        {end && (
-          <div className="loader">
-            <h1>End of file...</h1>
-          </div>
-        )}
-        <div id="page-bottom" ref={scrollRef} />
       </div>
+      {users.loading && !end && (
+        <div className="loader">
+          <Loader />
+        </div>
+      )}
+      {end && (
+        <div className="loader">
+          <h3>No More Users...</h3>
+        </div>
+      )}
+      <div id="page-bottom" ref={scrollRef} />
     </div>
   );
 };
