@@ -9,13 +9,16 @@ interface P {
 }
 
 const UserListItem: React.FC<P> = ({ avatar, firstname, lastname, email }) => (
-  <div className="list-item">
+  <div className="card">
     <img className="user-img" src={avatar} alt="user" />
     <div className="user-info">
-      <p>
-        <strong className="">{`${firstname} ${lastname}`}</strong>
-      </p>
-      <p>{email}</p>
+      <div className="empty" />
+      <div className="user-details">
+        <p>
+          <strong className="">{`${firstname} ${lastname}`}</strong>
+        </p>
+        <p>{email}</p>
+      </div>
     </div>
   </div>
 );
