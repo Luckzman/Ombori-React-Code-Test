@@ -34,3 +34,12 @@
   width: 80%;
   margin: 0 auto;
 }
+
+@media screen and (max-width: 414px) {
+  .list-page {
+    .grid {
+      grid-template-columns: repeat(1, 1fr);
+      grid-gap: 15px;
+    }
+  }
+}

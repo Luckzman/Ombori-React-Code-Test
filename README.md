@@ -1,5 +1,67 @@
 # Ombori React Code Test
 
+[![CircleCI](https://circleci.com/gh/Luckzman/React-Code-Test.svg?style=svg)](https://circleci.com/gh/Luckzman/React-Code-Test)
+
+
+
+## Table of Content
+
+1. [Built With](#built-with)
+3. [How to use](#how-to-use)
+4. [Author](#author)
+5. [License](#license)
+
+## Built With
+
+- [TypeScript](https://www.typescriptlang.org/)
+- [React](https://reactjs.org/)
+- [Redux](https://redux.js.org/)
+- [Scss](https://sass-lang.com/)
+- [Jest](https://expressjs.com/) & [Enzyme](https://airbnb.io/enzyme/)
+- [CircleCI](https://circleci.com/)
+
+### Deployment
+
+React-Code-Test App is hosted on Netlify
+
+- [Click here to view app](https://ombori-react-test.netlify.app/)
+
+
+## How to use
+
+### Prerequisite
+
+To clone and run this application, you'll need [git](https://git-scm.com/downloads) and [Node.js](https://nodejs.org/en/download/)(which comes with [npm](https://www.npmjs.com/)) installed on you computer.
+
+### Installing
+
+From your command line
+
+```
+# Clone this repository
+$ git clone https://github.com/Luckzman/React-Code-Test.git
+
+# Go into the repository directory
+$ cd React-Code-Test
+
+# Install dependencies
+$ npm install or $ yarn install
+
+# run the app
+$ npm start or $ yarn start
+```
+
+### Running Test
+- Navigate to the project root directory
+- After installation, run `npm test`
+
+## Author
+
+Lucky Omokarho Oniovosa
+
+___
+
+
 Hi there, we're really excited that you've made it this far in our interview process and look forward to getting to know you better.
 
 At Ombori, we strive to build fantastic apps using well structured and efficient code.

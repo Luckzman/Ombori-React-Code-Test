@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useCallback } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import React, { useRef } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
 import Loader from '../Loader';
 import UserListItem from '../UserListItem';
 import { RootState } from '../../store/types';
-import { getAllUsers, pageDispatch } from '../../store/action';
+import useInfiniteScroll from './useInfinteScroll';
 import './UserListPage.scss';
 
 interface User {
@@ -21,34 +21,10 @@ const UserListPage: React.FC = () => {
     (state: RootState) => state.pages.page,
     shallowEqual
   );
-  const dispatch = useDispatch();
 
   const scrollRef = useRef(null);
 
-  useEffect(() => {
-    if (page > 0) {
-      dispatch(getAllUsers(page));
-    }
-  }, [dispatch, page]);
-
-  const scrollObserver = useCallback(
-    (node) => {
-      new IntersectionObserver((entries) => {
-        entries.forEach((en) => {
-          if (en.intersectionRatio > 0) {
-            dispatch(pageDispatch());
-          }
-        });
-      }).observe(node);
-    },
-    [dispatch]
-  );
-
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollObserver(scrollRef.current);
-    }
-  }, [scrollObserver, scrollRef]);
+  useInfiniteScroll(scrollRef, page);
 
   return (
     <div className="list-page">
