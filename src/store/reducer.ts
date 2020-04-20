@@ -1,4 +1,5 @@
-import { getAllUserAction, actionTypes } from './action';
+import { actionTypes } from './actionTypes';
+import { getAllUserAction } from './types';
 
 const user = (state = { data: [], end: false }, action: getAllUserAction) => {
   switch (action.type) {

@@ -1,16 +1,19 @@
 import React from 'react';
 import './UserListItem.scss';
 
-interface P {
+interface Prop {
   firstname: string;
   lastname: string;
   avatar: string;
   email: string;
 }
 
-const UserListItem: React.FC<P> = ({ avatar, firstname, lastname, email }) => (
+const UserListItem: React.FC<Prop> =
+({ avatar, firstname, lastname, email }) => (
   <div className="card">
-    <img className="user-img" src={avatar} alt="user" />
+    <div className="img-border">
+      <img className="user-img" src={avatar} alt="user" />
+    </div>
     <div className="user-info">
       <div className="empty" />
       <div className="user-details">

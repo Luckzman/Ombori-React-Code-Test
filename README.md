@@ -1,4 +1,4 @@
-# Ombori React Code Test
+# React Code Test
 
 Hi there, we're really excited that you've made it this far in our interview process and look forward to getting to know you better.
 
